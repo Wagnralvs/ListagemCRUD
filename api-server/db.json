@@ -9,16 +9,16 @@
     },
     {
       "id": 2,
-      "title": "Segundo item",
-      "description": "Descrição do segundo item",
+      "title": "Segundo item atualizado",
+      "description": "Descrição do segundo item up",
       "status": "Fechado",
       "data": "2025-07-14"
     },
     {
       "id": 3,
-      "title": "Terceiro item",
+      "title": "Terceiro item up",
       "description": "Descrição do terceiro item",
-      "status": "Aberto",
+      "status": "Progresso",
       "data": "2025-07-13"
     },
     {
@@ -120,11 +120,11 @@
       "data": "15/07/2025"
     },
     {
-      "id": 16,
-      "title": "Cartões",
-      "description": "criações de cartões PF ",
-      "status": "Progresso",
-      "data": "15/07/2025"
+      "id": 17,
+      "title": "bug Test",
+      "description": "criação de test auto",
+      "status": "Aberto",
+      "data": "16/07/2025"
     }
   ]
 }

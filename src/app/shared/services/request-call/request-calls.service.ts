@@ -33,4 +33,12 @@ export class RequestCallsService {
   getLastItem(): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.apiUrl}/items?_sort=id&_order=desc&_limit=1`);
   }
+
+  getItemsByStatus(status: string, page:number):Observable<HttpResponse<Item[]>> | any {
+  return this.http.get<Item[]>(`${this.apiUrl}/items?status=${status}&_page=${page}&_limit=5`, { observe: 'response' });
+  }
+
+  getItemsByFilters(status: string, title: string, page:number) {
+  return this.http.get<Item[]>(`${this.apiUrl}/items?status=${status}&title=${title}&_page=${page}&_limit=5`, { observe: 'response' });
+}
 }

@@ -1,19 +1,18 @@
-<!--class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" -->
-<div  class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div  class="modal fade" id="modalAction" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="alert alert-primary" role="alert" *ngIf="msgAlert">
+    <!-- <div class="alert alert-primary" role="alert" *ngIf="msgAlert">
       chamado criado com sucesso!
-    </div>
+    </div> -->
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">
           <span><i class="{{classIcon()}}"></i></span>
-          {{ label }}
+          {{ label }} <strong *ngIf="actionEdit"> ###{{ form.value.id }}</strong>
         </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="form" class="was-validated" (ngSubmit)="createCallSubmit()">
+        <form [formGroup]="form" class="was-validated" (ngSubmit)="submitForm()">
           <div class="mb-3">
             <label for="title" class="form-label">Titulo: *</label>
             <input type="text" class="form-control "  id="title" formControlName="title" required>
@@ -39,8 +38,8 @@
               <input  class="auto" id="autoDate" formControlName="date" readonly>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
-              <button type="submit" [disabled]="form.invalid" class="btn btn-primary" >Salvar</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" [disabled]="form.invalid" class="btn btn-primary" ><i class="bi bi-floppy"></i> {{btnActionSubmit}}</button>
             </div>
           </form>
       </div>

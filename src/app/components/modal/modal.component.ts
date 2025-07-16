@@ -6,7 +6,6 @@ import { Item } from 'src/app/shared/interfaces/list-items';
 import { MainService } from 'src/app/shared/services/main/main.service';
 import { RequestCallsService } from 'src/app/shared/services/request-call/request-calls.service';
 
-declare var bootstrap: any;
 @Component({
   selector: 'call-modal',
   templateUrl: './modal.component.html',
@@ -16,6 +15,8 @@ export class ModalComponent implements OnInit, OnDestroy {
   // Variáveis para controle de exibição do modal
   isOpen: boolean = false;
   label: LabelNameModel | null = null;
+  actionEdit = false;
+  btnActionSubmit = '';
   msgAlert = false;
   private subscription: Subscription =  new Subscription();
   form!: FormGroup;
@@ -30,22 +31,14 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.mainService.openModal.subscribe(({ isOpen, label }) => {
+    this.subscription = this.mainService.openActionModal.subscribe(({ isOpen, label, item }) => {
       this.isOpen = isOpen;
       this.label = label
       if (isOpen) {
-        const modalElement = document.getElementById('exampleModal');
-        if (modalElement) {
-          const modal = new bootstrap.Modal(modalElement);
-          modal.show();
-        }
+        this.label === LabelNameModel.NEW_CALL ? this.actionCreateModal() : this.actionEditModal(item);
+        this.mainService.openModal('modalAction');
       }
-      this.requestCallsService.getLastItem().subscribe(item => {
-        debugger
-          this.form.get('id')?.setValue(item[0].id + 1);
-          //this.form.patchValue(item[0]);
 
-      });
     });
 
 
@@ -54,48 +47,80 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   createForm(): void {
     this.form = this.formBuilder.group({
-      title: ['', [Validators.required]],
-      description: [''],
-      status: [Validators.required],
+      title: [null, [Validators.required]],
+      description: [null, [Validators.required]],
+      status: [null, [Validators.required]],
       id:[null],
       date: [this.formatDate()]
     });
   }
 
-  // Método para fechar o modal
-  closeModal(): void {
-      const modalElement = document.getElementById('exampleModal');
-      if (modalElement) {
-        const modal = bootstrap.Modal.getInstance(modalElement) ||
-        new bootstrap.Modal(modalElement);
-        modal.hide();
-      }
-      this.form.reset();
-      this.ngOnDestroy();
+  actionEditModal(item:Item | undefined): void {
+    if (item) {
+      this.actionEdit = true;
+      this.btnActionSubmit = 'Atualizar';
+      this.form.get('id')?.setValue(item.id);
+      this.form.get('title')?.setValue(item.title);
+      this.form.get('description')?.setValue(item.description);
+      this.form.get('status')?.setValue(item.status);
+      this.form.get('date')?.setValue(item.data);
+    }
   }
 
+  actionCreateModal(): void {
+    this.btnActionSubmit = 'Salvar';
+    this.actionEdit = false;
+     this.requestCallsService.getLastItem().pipe(
+      map((item: Item[]) => {
+          this.form.get('id')?.setValue(item[0].id + 1);
+      }),
+      catchError((error:any) => {
+        console.error('Erro ao obter o último item:', error);
+        return [];
+      })
+     ).subscribe();
+  }
 
-
-  createCallSubmit(): void {
-    const itens :  Item = {
+  submitForm(): void {
+     const itens :  Item = {
       id: this.form.value.id,
       title: this.form.value.title,
       description: this.form.value.description,
       status: this.form.value.status,
       data: this.form.value.date
     };
-
-    this.requestCallsService.createItem(itens).pipe(
+    if (this.label === LabelNameModel.NEW_CALL) {
+      this.createCallSubmit(itens);
+    } else {
+      this.editCallSubmit(itens);
+    }
+  }
+  editCallSubmit(item:Item): void {
+    this.requestCallsService.updateItem(item).pipe(
       map(() => {
         this.msgAlert = true;
-        this.mainService.openModal.next({ isOpen: false, label: null });
-        debugger
-        this.closeModal();
+        this.mainService.openActionModal.next({ isOpen: false, updateLoadingModal: true, label: LabelNameModel.NONE });
+        this.mainService.closeModal('modalAction');
+        return ;
+      }),
+      catchError(error => {
+        console.error('Erro ao atualizar chamado:', error);
+        throw error;
+      })
+    ).subscribe();
+  }
+
+  createCallSubmit(item:Item): void {
+    this.requestCallsService.createItem(item).pipe(
+      map(() => {
+        this.msgAlert = true;
+        this.mainService.openActionModal.next({ isOpen: false, updateLoadingModal: true, label: LabelNameModel.NONE });
+        this.mainService.closeModal('modalAction');
         return ;
       }),
       catchError(error => {
         console.error('Erro ao criar chamado:', error);
-        throw error; // Re-throw the error to handle it in the subscription
+        throw error; 
       })
     ).subscribe();
   }
