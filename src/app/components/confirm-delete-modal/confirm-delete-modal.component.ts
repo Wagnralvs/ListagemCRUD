@@ -12,7 +12,6 @@ import { LabelNameModel } from 'src/app/shared/interfaces/label-name-model';
 })
 export class ConfirmDeleteModalComponent implements OnInit , OnChanges {
   @Input() item: Item  = {} as Item; 
-  @Input() openDeleteModal = false;
  
 
   isOpen: boolean = false;
@@ -22,7 +21,7 @@ export class ConfirmDeleteModalComponent implements OnInit , OnChanges {
     private mainService: MainService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['openDeleteModal'] && changes['openDeleteModal'].currentValue) {
+    if (changes['item'].currentValue.id) {
       this.mainService.openModal('modalDelete');
     }
   }
@@ -34,6 +33,7 @@ export class ConfirmDeleteModalComponent implements OnInit , OnChanges {
     this.requestCallsService.deleteItem(this.item.id).pipe(
       map(() => {
         this.mainService.closeModal('modalDelete');
+        this.item = {} as Item;
         this.mainService.openActionModal.next({ isOpen: false, updateLoadingModal: true, label: LabelNameModel.NONE });
       }),
       catchError((error) => {

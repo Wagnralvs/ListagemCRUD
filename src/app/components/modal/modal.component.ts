@@ -51,7 +51,7 @@ export class ModalComponent implements OnInit, OnDestroy {
       description: [null, [Validators.required]],
       status: [null, [Validators.required]],
       id:[null],
-      date: [this.formatDate()]
+      date: [this.mainService.formatDate(new Date())]
     });
   }
 
@@ -114,7 +114,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.requestCallsService.createItem(item).pipe(
       map(() => {
         this.msgAlert = true;
-        this.mainService.openActionModal.next({ isOpen: false, updateLoadingModal: true, label: LabelNameModel.NONE });
+        this.mainService.openActionModal.next({ isOpen: false, updateLoadingModal: true, lastAction:true, label: LabelNameModel.NONE });
         this.mainService.closeModal('modalAction');
         return ;
       }),
@@ -125,13 +125,13 @@ export class ModalComponent implements OnInit, OnDestroy {
     ).subscribe();
   }
 
-  formatDate(): string {
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const year = today.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
+  // formatDate(): string {
+  //   const today = new Date();
+  //   const day = String(today.getDate()).padStart(2, '0');
+  //   const month = String(today.getMonth() + 1).padStart(2, '0');
+  //   const year = today.getFullYear();
+  //   return `${day}/${month}/${year}`;
+  // }
 
   classIcon(): string {
     return this.label == LabelNameModel.NEW_CALL ? 'bi bi-plus-lg' : 'bi bi-pencil';

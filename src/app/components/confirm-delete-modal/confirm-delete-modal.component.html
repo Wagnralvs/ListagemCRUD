@@ -11,10 +11,10 @@
       <div class="modal-body">
         <p>Tem certeza que deseja excluir o chamado abaixo?</p>
 
-        <ul>
-          <li><i class="bi bi-file-earmark-minus"></i> Chamado <strong class="text-danger">#{{ item.id }}</strong></li>
-          <li><i class="bi bi-file-text"></i> {{ item.title }}</li>
-          <li><i class="bi bi-calendar-week"></i> Criado em: <strong class="text-danger">{{ item.data}}</strong></li>
+        <ul class="list-group">
+          <li class="list-group-item"><i class="bi bi-file-earmark-minus"></i> Chamado <strong class="text-danger">#{{ item.id }}</strong></li>
+          <li class="list-group-item"><i class="bi bi-file-text"></i> {{ item.title }}</li>
+          <li class="list-group-item"><i class="bi bi-calendar-week"></i> Criado em: <strong class="text-danger">{{ item.data}}</strong></li>
         </ul>
 
         <p class="text-danger"><i class="bi bi-exclamation-triangle"></i> Esta ação não pode ser desfeita!</p>

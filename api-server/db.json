@@ -2,129 +2,129 @@
   "items": [
     {
       "id": 1,
-      "title": "Primeiro item",
-      "description": "Descrição do primeiro item",
+      "title": "primeiro item",
+      "description": "descrição do primeiro item",
       "status": "Aberto",
-      "data": "2025-07-15"
+      "data": "2025/07/15"
     },
     {
       "id": 2,
-      "title": "Segundo item atualizado",
-      "description": "Descrição do segundo item up",
+      "title": "segundo item atualizado",
+      "description": "descrição do segundo item up",
       "status": "Fechado",
-      "data": "2025-07-14"
+      "data": "2025/07/14"
     },
     {
       "id": 3,
-      "title": "Terceiro item up",
-      "description": "Descrição do terceiro item",
+      "title": "terceiro item up",
+      "description": "descrição do terceiro item",
       "status": "Progresso",
-      "data": "2025-07-13"
+      "data": "2025/07/13"
     },
     {
       "id": 4,
-      "title": "Quarto item",
-      "description": "Descrição do quarto item",
+      "title": "quarto item",
+      "description": "descrição do quarto item",
       "status": "Fechado",
-      "data": "2025-07-12"
+      "data": "2025/07/12"
     },
     {
       "id": 5,
-      "title": "Quinto item",
-      "description": "Descrição do quinto item",
+      "title": "quinto item",
+      "description": "descrição do quinto item",
       "status": "Aberto",
-      "data": "2025-07-11"
-    },
-    {
-      "id": 6,
-      "title": "Sexto item",
-      "description": "Descrição do sexto item",
-      "status": "Fechado",
-      "data": "2025-07-10"
+      "data": "2025/07/11"
     },
     {
       "id": 7,
-      "title": "Sétimo item",
-      "description": "Descrição do sétimo item",
+      "title": "sétimo item",
+      "description": "descrição do sétimo item",
       "status": "Aberto",
-      "data": "2025-07-09"
+      "data": "2025/07/09"
     },
     {
       "id": 8,
-      "title": "Oitavo item",
-      "description": "Descrição do oitavo item",
+      "title": "oitavo item",
+      "description": "descrição do oitavo item",
       "status": "Fechado",
-      "data": "2025-07-08"
+      "data": "2025/07/08"
     },
     {
       "id": 9,
-      "title": "Nono item",
-      "description": "Descrição do nono item",
+      "title": "nono item",
+      "description": "descrição do nono item",
       "status": "Aberto",
-      "data": "2025-07-07"
+      "data": "2025/07/07"
     },
     {
       "id": 9,
-      "title": "Nono item",
-      "description": "Descrição do nono item",
+      "title": "nono item",
+      "description": "descrição do nono item",
       "status": "Fechado",
-      "data": "2025-07-08"
+      "data": "2025/07/08"
     },
     {
       "id": 9,
-      "title": "Nono item",
-      "description": "Descrição do nono item",
+      "title": "nono item",
+      "description": "descrição do nono item",
       "status": "Aberto",
-      "data": "2025-07-07"
+      "data": "2025/07/07"
     },
     {
       "id": 10,
-      "title": "Décimo item",
-      "description": "Descrição do décimo item",
+      "title": "décimo item",
+      "description": "descrição do décimo item",
       "status": "Fechado",
-      "data": "2025-07-06"
-    },
-    {
-      "id": 11,
-      "title": null,
-      "description": null,
-      "status": null,
-      "data": "15/07/2025"
-    },
-    {
-      "id": 12,
-      "title": null,
-      "description": null,
-      "status": null,
-      "data": "15/07/2025"
-    },
-    {
-      "id": 13,
-      "title": null,
-      "description": null,
-      "status": null,
-      "data": "15/07/2025"
-    },
-    {
-      "id": 14,
-      "title": "Cartões",
-      "description": "criações de cartões PF ",
-      "status": "Fechado",
-      "data": "15/07/2025"
+      "data": "2025/07/06"
     },
     {
       "id": 15,
-      "title": "Cartões",
-      "description": "criações de cartões PF ",
+      "title": "cartões",
+      "description": "criações de cartões pf ",
       "status": "Aberto",
       "data": "15/07/2025"
     },
     {
       "id": 17,
-      "title": "bug Test",
+      "title": "bug test",
       "description": "criação de test auto",
       "status": "Aberto",
       "data": "16/07/2025"
+    },
+    {
+      "id": 18,
+      "title": "conclusão modal ",
+      "description": "modal delete concluído ",
+      "status": "Fechado",
+      "data": "16/07/2025"
+    },
+    {
+      "id": 19,
+      "title": "uppcade test",
+      "description": "tratamento filtre titulo ",
+      "status": "Aberto",
+      "data": "17/07/2025"
+    },
+    {
+      "id": 20,
+      "title": "filter date",
+      "description": "test no filtro de data",
+      "status": "Progresso",
+      "data": "17/07/2025"
+    },
+    {
+      "id": 21,
+      "title": "filtro titulo ",
+      "description": "Conclusão filtro titulo",
+      "status": "Progresso",
+      "data": "17/07/2025"
+    },
+    {
+      "id": 22,
+      "title": "alert msg sucess",
+      "description": "alerta de criação de chamado",
+      "status": "Aberto",
+      "data": "17/07/2025"
     }
   ]
 }

@@ -5,5 +5,6 @@ export interface ActionModel {
   isOpen: boolean;
   label: LabelNameModel;
   updateLoadingModal?: boolean;
+  lastAction?:boolean;
   item?: Item;
 }

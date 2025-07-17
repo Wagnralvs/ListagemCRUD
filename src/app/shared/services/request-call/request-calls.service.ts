@@ -15,14 +15,21 @@ export class RequestCallsService {
     const params = new HttpParams()
     .set('_page', page)
     .set('_limit', limit);
-    return this.http.get<Item[]>(`${this.apiUrl}/items`, {params, observe: 'response' })
+    return this.http.get<Item[]>(`${this.apiUrl}/items`, {params, observe: 'response' }).pipe(
+      map((response: HttpResponse<Item[]>) => {
+        response.body?.forEach(item => this.formatUpperCase(item));
+        return response;
+      })
+    );
   }
 
   createItem(item: Item): Observable<Item> {
+    item.title = item.title.toLowerCase();
     return this.http.post<Item>(`${this.apiUrl}/items`, item);
   }
 
   updateItem(item: Item): Observable<Item> {
+    item.title = item.title.toLowerCase();
     return this.http.put<Item>(`${this.apiUrl}/items/${item.id}`, item);
   }
 
@@ -33,12 +40,37 @@ export class RequestCallsService {
   getLastItem(): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.apiUrl}/items?_sort=id&_order=desc&_limit=1`);
   }
+  getFilterItemsByID(id: number): Observable<HttpResponse<Item>> {
+     return this.http.get<Item>(`${this.apiUrl}/items/${id}`, { observe: 'response' }).pipe(
+       map((response: HttpResponse<Item>) => {
+         this.formatUpperCase(response.body as Item)  ;
+         return response;
+       })
+     );
+   }
 
-  getItemsByStatus(status: string, page:number):Observable<HttpResponse<Item[]>> | any {
-  return this.http.get<Item[]>(`${this.apiUrl}/items?status=${status}&_page=${page}&_limit=5`, { observe: 'response' });
+  getItemsByStatus(status: string, page:number, limit:number):Observable<HttpResponse<Item[]>> | any {
+  return this.http.get<Item[]>(`${this.apiUrl}/items?status=${status}&_page=${page}&_limit=${limit}`, { observe: 'response' });
   }
 
-  getItemsByFilters(status: string, title: string, page:number) {
-  return this.http.get<Item[]>(`${this.apiUrl}/items?status=${status}&title=${title}&_page=${page}&_limit=5`, { observe: 'response' });
+  getFilterItemsByTitle(title: string, page:number, limit:number) {
+  return this.http.get<Item[]>(`${this.apiUrl}/items?title_like=${title}&_page=${page}&_limit=${limit}`, { observe: 'response' });
 }
+
+getFilterItemsByDate(data: string, page:number, limit:number): Observable<HttpResponse<Item[]>> {
+  return this.http.get<Item[]>(`${this.apiUrl}/items?data=${data}&_page=${page}&_limit=${limit}`, { observe: 'response' }).pipe(
+    map((response: HttpResponse<Item[]>) => {
+      response.body?.forEach(item => this.formatUpperCase(item));
+      return response;
+    })
+  );
+}
+
+
+  private formatUpperCase(item:Item): Item {
+      item.title = item.title.charAt(0).toUpperCase() + item.title.slice(1).toLowerCase();
+      item.description = item.description.charAt(0).toUpperCase() + item.description.slice(1).toLowerCase();
+    return item
+  }
+
 }
