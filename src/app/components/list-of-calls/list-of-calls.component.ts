@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { catchError, map } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { FilterActiveModel } from 'src/app/shared/interfaces/filter-active';
 import { LabelNameModel } from 'src/app/shared/interfaces/label-name-model';
 import { Item } from 'src/app/shared/interfaces/list-items';
@@ -28,6 +28,14 @@ export class ListOfCallsComponent implements OnInit {
   alertCreated = false;
   advancedFilter = false;
   dataLabel = 'Data';
+  dataFilterAdvancedOf = '';
+  dataFilterAdvancedTo = '';
+  validDataAdvancedErro = false;
+  btnFilterAdvanced = 'Filtros Avançados';
+  iconBtnFilterAdvanced = 'bi bi-arrow-down-short';
+  positionTitleInput = 'order-1';
+  placeholderTitle = 'Título';
+  searchValueAdvanced = '';
 
   constructor(private requestCallsService: RequestCallsService, private mainService: MainService) { }
 
@@ -44,28 +52,27 @@ export class ListOfCallsComponent implements OnInit {
   }
 
   loadItems(): void {
-    this.requestCallsService.getItems(this.page).subscribe(
-      (data: HttpResponse<Item[]>) => {
+    this.requestCallsService.getItems(this.page).pipe(
+      map((data: HttpResponse<Item[]>) => {
         this.items = data.body || [];
        this.controlPage(data);
-      },
-      ( error: any) => {
+      }),
+      catchError((error) => {
         this.loading = false;
         console.error('Error fetching items:', error);
+        return of()
       }
-    );
+    )).subscribe();
   }
 
   navigationPage(page: number): void {
     this.page = page;
-    
+
     switch (this.filterActiveModel) {
       case FilterActiveModel.NONE:
         this.loading = true;
         this.items = [];
         this.loadItems();
-        break;
-      case FilterActiveModel.ID:
         break;
       case FilterActiveModel.TITLE:
         this.onFilterItemsTitle(this.page);
@@ -73,6 +80,8 @@ export class ListOfCallsComponent implements OnInit {
       case FilterActiveModel.STATUS:
         this.onFilterItemsStatus(this.filterByStatus);
         break;
+      case FilterActiveModel.SEARCH_ADVANCED:
+        this.onFilterForSearchAdvanced(this.searchValueAdvanced);
     }
   }
 
@@ -163,9 +172,13 @@ export class ListOfCallsComponent implements OnInit {
   }
 
   onFilterItemsDate(event: any): void {
-    const dateValue: string = event?.target?.value; 
-  
-    if(new Date(dateValue) > new Date('2025-01-01')) {
+    const dateValue: string = event?.target?.value;
+
+    if(new Date(dateValue) > new Date('2000-01-01')) {
+      if(this.advancedFilter) {
+        this.dataFilterAdvancedOf = dateValue;
+        return;
+      }
       const date: string = this.mainService.formatDate(new Date(`${dateValue}T12:00:00`));
 
       this.loadingFilter = true;
@@ -187,10 +200,72 @@ export class ListOfCallsComponent implements OnInit {
     }
   }
 
+  onFilterItemDateAdvanced(event: any): void {
+    this.dataFilterAdvancedTo = event?.target?.value;
+
+    if (new Date(this.dataFilterAdvancedOf) <  new Date(this.dataFilterAdvancedTo)) {
+      this.validDataAdvancedErro = false;
+      this.dataFilterAdvancedTo = this.mainService.formatDate(new Date(`${this.dataFilterAdvancedTo}T12:00:00`));
+      this.dataFilterAdvancedOf = this.mainService.formatDate(new Date(`${this.dataFilterAdvancedOf}T12:00:00`));
+      this.loadingFilter = true;
+      this.actionFilter = true;
+      this.requestCallsService.getFilterItemsForPeriodDate(this.dataFilterAdvancedOf, this.dataFilterAdvancedTo, this.page, this.limitPage).pipe(
+        map((response: HttpResponse<Item[]>) => {
+          this.items = response.body || [];
+          this.filterActiveModel = FilterActiveModel.PERIOD_DATE_ADVANCED;
+          this.controlPage(response);
+        }),
+        catchError((error: HttpResponse<any>) => {
+          this.items = [];
+          this.loadingFilter = false;
+          this.statusApi = error.status;
+          console.error('Error fetching filtered items:', error.status, error.statusText);
+          return [];
+        })
+      ).subscribe();
+    } else {
+      this.validDataAdvancedErro = true;
+      console.error('Data de início deve ser menor que a data final.');
+    }
+  }
+
+  onFilterForSearchAdvanced(event: any): void {
+    this.searchValueAdvanced = event?.target?.value || this.searchValueAdvanced;
+    this.loadingFilter = true;
+    this.actionFilter = true;
+    this.requestCallsService.getItemsForSearch(this.searchValueAdvanced, this.page, this.limitPage).pipe(
+      map((response: HttpResponse<Item[]>) => {
+        this.items = response.body || [];
+        this.filterActiveModel = FilterActiveModel.SEARCH_ADVANCED;
+        this.controlPage(response);
+      }),
+      catchError((error: HttpResponse<any>) => {
+        this.items = [];
+        this.loadingFilter = false;
+        this.statusApi = error.status;
+        console.error('Error fetching filtered items:', error.status, error.statusText);
+        return [];
+      })
+    ).subscribe();
+  }
+
   onFilterAdvanced(): void {
-    this.advancedFilter = true;
+    this.advancedFilter = !this.advancedFilter;
     this.dataLabel = 'Data de';
-   }
+    if(this.advancedFilter) {
+      this.btnFilterAdvanced = 'Ver menos';
+      this.iconBtnFilterAdvanced = 'bi bi-arrow-up-short';
+      this.positionTitleInput = 'order-3';
+      this.dataLabel = 'Data de Início';
+      this.placeholderTitle = 'Digite para buscar por título ou descrição';
+    } else {
+      this.resetFilters();
+    }
+  }
+
+  controlFilterItemMode(event: any): void {
+    this.actionFilter ? this.onFilterForSearchAdvanced(event) : this.onFilterItemsTitle(event);
+  }
 
   controlPage(data: any): void {
         const totalItens = Number(data.headers.get('X-Total-Count'));
@@ -211,6 +286,14 @@ export class ListOfCallsComponent implements OnInit {
     this.filterActiveModel = FilterActiveModel.NONE;
     this.page = 1;
     this.advancedFilter = false;
+    this.dataFilterAdvancedOf = '';
+    this.dataFilterAdvancedTo = '';
+    this.validDataAdvancedErro = false;
+    this.btnFilterAdvanced = 'Filtros Avançados';
+    this.iconBtnFilterAdvanced = 'bi bi-arrow-down-short';
+    this.positionTitleInput = 'order-1';
+    this.placeholderTitle = 'Título';
+    this.searchValueAdvanced = '';
     this.loadItems();
   }
 

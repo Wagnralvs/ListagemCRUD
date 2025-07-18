@@ -3,5 +3,7 @@ export enum FilterActiveModel {
   ID = 'id',
   TITLE = 'title',
   STATUS = 'status',
-  DATE = 'date'
+  DATE = 'date',
+  SEARCH_ADVANCED = "search",
+  PERIOD_DATE_ADVANCED = 'periodDate',
 }

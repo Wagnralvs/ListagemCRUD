@@ -50,15 +50,43 @@ export class RequestCallsService {
    }
 
   getItemsByStatus(status: string, page:number, limit:number):Observable<HttpResponse<Item[]>> | any {
-  return this.http.get<Item[]>(`${this.apiUrl}/items?status=${status}&_page=${page}&_limit=${limit}`, { observe: 'response' });
+  return this.http.get<Item[]>(`${this.apiUrl}/items?status=${status}&_page=${page}&_limit=${limit}`, { observe: 'response' }).pipe(
+    map((response: HttpResponse<Item[]>) => {
+      response.body?.forEach(item => this.formatUpperCase(item));
+      return response;
+    })
+  );;
   }
 
   getFilterItemsByTitle(title: string, page:number, limit:number) {
-  return this.http.get<Item[]>(`${this.apiUrl}/items?title_like=${title}&_page=${page}&_limit=${limit}`, { observe: 'response' });
+  return this.http.get<Item[]>(`${this.apiUrl}/items?title_like=${title}&_page=${page}&_limit=${limit}`, { observe: 'response' }).pipe(
+    map((response: HttpResponse<Item[]>) => {
+      response.body?.forEach(item => this.formatUpperCase(item));
+      return response;
+    })
+  );;
 }
 
 getFilterItemsByDate(data: string, page:number, limit:number): Observable<HttpResponse<Item[]>> {
   return this.http.get<Item[]>(`${this.apiUrl}/items?data=${data}&_page=${page}&_limit=${limit}`, { observe: 'response' }).pipe(
+    map((response: HttpResponse<Item[]>) => {
+      response.body?.forEach(item => this.formatUpperCase(item));
+      return response;
+    })
+  );
+}
+
+getFilterItemsForPeriodDate(dataStart: string, dataEnd: string, page:number, limit:number):Observable<HttpResponse<Item[]>> {
+  return this.http.get<Item[]>(`${this.apiUrl}/items?data_gte=${dataStart}&data_lte=${dataEnd}&_page=${page}&_limit=${limit}`, { observe: 'response' }).pipe(
+    map((response: HttpResponse<Item[]>) => {
+      response.body?.forEach(item => this.formatUpperCase(item));
+      return response;
+    })
+  );
+}
+
+getItemsForSearch(search: string, page:number, limit:number): Observable<HttpResponse<Item[]>> {
+  return this.http.get<Item[]>(`${this.apiUrl}/items?q=${search}&_page=${page}&_limit=${limit}`, { observe: 'response' }).pipe(
     map((response: HttpResponse<Item[]>) => {
       response.body?.forEach(item => this.formatUpperCase(item));
       return response;

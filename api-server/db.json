@@ -106,13 +106,6 @@
       "data": "17/07/2025"
     },
     {
-      "id": 20,
-      "title": "filter date",
-      "description": "test no filtro de data",
-      "status": "Progresso",
-      "data": "17/07/2025"
-    },
-    {
       "id": 21,
       "title": "filtro titulo ",
       "description": "Conclusão filtro titulo",
@@ -125,6 +118,13 @@
       "description": "alerta de criação de chamado",
       "status": "Aberto",
       "data": "17/07/2025"
+    },
+    {
+      "id": 23,
+      "title": "test 17",
+      "description": "ediçao",
+      "status": "Aberto",
+      "data": "18/07/2025"
     }
   ]
 }

@@ -68,6 +68,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   actionCreateModal(): void {
+    this.form.reset();
     this.btnActionSubmit = 'Salvar';
     this.actionEdit = false;
      this.requestCallsService.getLastItem().pipe(
