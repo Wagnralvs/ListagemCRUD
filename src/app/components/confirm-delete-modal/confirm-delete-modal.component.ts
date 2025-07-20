@@ -10,14 +10,11 @@ import { LabelNameModel } from 'src/app/shared/interfaces/label-name-model';
   templateUrl: './confirm-delete-modal.component.html',
   styleUrls: ['./confirm-delete-modal.component.scss']
 })
-export class ConfirmDeleteModalComponent implements OnInit , OnChanges {
-  @Input() item: Item  = {} as Item; 
- 
-
-  isOpen: boolean = false;
+export class ConfirmDeleteModalComponent implements OnChanges {
+  @Input() item: Item  = {} as Item;
 
   constructor(
-    private requestCallsService: RequestCallsService, 
+    private requestCallsService: RequestCallsService,
     private mainService: MainService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -26,8 +23,6 @@ export class ConfirmDeleteModalComponent implements OnInit , OnChanges {
     }
   }
 
-  ngOnInit(): void {
-   }
 
   deleteItem(): void {
     this.requestCallsService.deleteItem(this.item.id).pipe(

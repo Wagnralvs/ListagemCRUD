@@ -22,7 +22,7 @@ export class ListOfCallsComponent implements OnInit {
   statusApi = 0;
   loadingFilter = false;
   actionFilter = false;
-  limitPage = 5;
+  limitPage = 10;
   filterByStatus = '';
   filterActiveModel: FilterActiveModel = FilterActiveModel.NONE;
   alertCreated = false;
@@ -52,7 +52,7 @@ export class ListOfCallsComponent implements OnInit {
   }
 
   loadItems(): void {
-    this.requestCallsService.getItems(this.page).pipe(
+    this.requestCallsService.getItems(this.page, this.limitPage).pipe(
       map((data: HttpResponse<Item[]>) => {
         this.items = data.body || [];
        this.controlPage(data);
@@ -264,7 +264,7 @@ export class ListOfCallsComponent implements OnInit {
   }
 
   controlFilterItemMode(event: any): void {
-    this.actionFilter ? this.onFilterForSearchAdvanced(event) : this.onFilterItemsTitle(event);
+    this.advancedFilter ? this.onFilterForSearchAdvanced(event) : this.onFilterItemsTitle(event);
   }
 
   controlPage(data: any): void {

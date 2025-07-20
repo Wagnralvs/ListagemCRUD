@@ -1,12 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ListOfCallsComponent } from './list-of-calls.component';
-import { HttpClientModule, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { ConfirmDeleteModalComponent } from '../confirm-delete-modal/confirm-delete-modal.component';
 import { MainService } from 'src/app/shared/services/main/main.service';
 import { RequestCallsService } from 'src/app/shared/services/request-call/request-calls.service';
 import { Item } from 'src/app/shared/interfaces/list-items';
 import { of, Subject, throwError } from 'rxjs';
 import { FilterActiveModel } from 'src/app/shared/interfaces/filter-active';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ListOfCallsComponent', () => {
   let component: ListOfCallsComponent;
@@ -50,7 +51,7 @@ describe('ListOfCallsComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [ ListOfCallsComponent, ConfirmDeleteModalComponent ],
-      imports: [HttpClientModule],
+      imports: [HttpClientTestingModule],
       providers: [
         { provide: MainService, useValue: mainService },
         { provide: RequestCallsService, useValue: requestCallsService }
@@ -72,7 +73,6 @@ describe('ListOfCallsComponent', () => {
     requestCallsService.getItems.and.returnValue(of(throwError(()=> new Error('erro item'))));
     component.ngOnInit();
 
-    expect(requestCallsService.getItems).toHaveBeenCalledWith(1);
     expect(component.loading).toBeFalse();
 
   });

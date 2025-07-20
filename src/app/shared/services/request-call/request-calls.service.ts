@@ -10,8 +10,7 @@ export class RequestCallsService {
   private apiUrl = 'http://localhost:3000'; // Replace with your API URL
   constructor(private http: HttpClient) { }
 
-  getItems(page:number): Observable<HttpResponse<Item[]>> | any {
-    const limit = 5;
+  getItems(page:number, limit:number): Observable<HttpResponse<Item[]>> | any {
     const params = new HttpParams()
     .set('_page', page)
     .set('_limit', limit);

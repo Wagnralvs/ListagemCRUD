@@ -9,7 +9,7 @@ export class MainService {
   openActionModal = new Subject<ActionModel>();
 
   constructor() { }
-  
+
   openModal(elementId: string): void {
     const modalElement = document.getElementById(elementId);
     if (modalElement) {
@@ -27,11 +27,8 @@ export class MainService {
   }
 
   formatDate(date: Date): string {
-    //const today = new Date();
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-   // return `${day}/${month}/${year}`;
+    const test = date.toLocaleDateString('pt-BR');
+    debugger
     return date.toLocaleDateString('pt-BR');
   }
 

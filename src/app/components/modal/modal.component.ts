@@ -31,16 +31,14 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.mainService.openActionModal.subscribe(({ isOpen, label, item }) => {
-      this.isOpen = isOpen;
-      this.label = label
-      if (isOpen) {
-        this.label === LabelNameModel.NEW_CALL ? this.actionCreateModal() : this.actionEditModal(item);
+    this.subscription = this.mainService.openActionModal.subscribe((openModel) => {
+      this.isOpen = openModel.isOpen;
+      this.label = openModel.label
+      if (openModel.isOpen) {
+        this.label === LabelNameModel.NEW_CALL ? this.actionCreateModal() : this.actionEditModal(openModel.item);
         this.mainService.openModal('modalAction');
       }
-
     });
-
 
   }
 
@@ -71,6 +69,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.form.reset();
     this.btnActionSubmit = 'Salvar';
     this.actionEdit = false;
+    this.form.get('date')?.setValue(this.mainService.formatDate(new Date()))
      this.requestCallsService.getLastItem().pipe(
       map((item: Item[]) => {
           this.form.get('id')?.setValue(item[0].id + 1);
@@ -121,18 +120,10 @@ export class ModalComponent implements OnInit, OnDestroy {
       }),
       catchError(error => {
         console.error('Erro ao criar chamado:', error);
-        throw error; 
+        throw error;
       })
     ).subscribe();
   }
-
-  // formatDate(): string {
-  //   const today = new Date();
-  //   const day = String(today.getDate()).padStart(2, '0');
-  //   const month = String(today.getMonth() + 1).padStart(2, '0');
-  //   const year = today.getFullYear();
-  //   return `${day}/${month}/${year}`;
-  // }
 
   classIcon(): string {
     return this.label == LabelNameModel.NEW_CALL ? 'bi bi-plus-lg' : 'bi bi-pencil';

@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
 import { RequestCallsService } from './request-calls.service';
-import { HttpClient, HttpClientModule, HttpResponse } from '@angular/common/http';
+import { HttpClient,  HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Item } from '../../interfaces/list-items';
 import { of } from 'rxjs';
 
@@ -35,7 +36,7 @@ describe('RequestCallsService', () => {
   beforeEach(() => {
    // spyOn(String.prototype, 'charAt').and.returnValue('A')
     TestBed.configureTestingModule({
-      imports:[HttpClientModule],
+      imports:[HttpClientTestingModule],
       providers:[HttpClient]
     });
     service = TestBed.inject(RequestCallsService);
@@ -49,7 +50,7 @@ describe('RequestCallsService', () => {
 
   it('should getItems called success', ()=>{
     spyOn(http, 'get').and.returnValue(of(new HttpResponse<Item[]>({ body: item, status: 200 })));
-    service.getItems(1).subscribe((response:any) => {
+    service.getItems(1, 10).subscribe((response:any) => {
       expect(response.body).toEqual(item);
     });
   })

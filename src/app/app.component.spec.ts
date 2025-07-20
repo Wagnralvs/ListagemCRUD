@@ -3,16 +3,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { ListOfCallsComponent } from './components/list-of-calls/list-of-calls.component';
 import { ModalComponent } from './components/modal/modal.component';
-import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ConfirmDeleteModalComponent } from './components/confirm-delete-modal/confirm-delete-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule, HttpClientModule, ReactiveFormsModule
+        RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule
       ],
       declarations: [
         AppComponent,
