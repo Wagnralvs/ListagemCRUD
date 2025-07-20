@@ -27,8 +27,6 @@ export class MainService {
   }
 
   formatDate(date: Date): string {
-    const test = date.toLocaleDateString('pt-BR');
-    debugger
     return date.toLocaleDateString('pt-BR');
   }
 

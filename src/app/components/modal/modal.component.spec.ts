@@ -75,8 +75,35 @@ describe('ModalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-   it('should ngOnInit is called', () => {
+   it('should ngOnInit is called new called', () => {
+    actionModel.label = LabelNameModel.NEW_CALL;
+    mainService.openActionModal.next(actionModel)
+    component.form.patchValue({
+      id:1,
+      title: "Test 1",
+      description:"test 01",
+      status:"",
+      date:""
 
+    })
+    component.ngOnInit()
+    expect(component.actionEdit).toEqual(false)
+  });
+
+    it('should ngOnInit is called edit call', () => {
+
+    actionModel.label = LabelNameModel.EDIT_CALL;
+    mainService.openActionModal.next(actionModel)
+    component.form.patchValue({
+      id:1,
+      title: "Test 1",
+      description:"test 01",
+      status:"",
+      date:""
+
+    })
+    component.ngOnInit()
+    expect(component.actionEdit).toEqual(true)
   });
 
   it('should actionEditModal is called', () => {
@@ -99,8 +126,7 @@ describe('ModalComponent', () => {
   });
 
    it('should submitForm is called EditCall', () => {
-    //fixture.detectChanges();
-    mainService.openActionModal.next(actionModel)
+    component.label = LabelNameModel.EDIT_CALL;
     requestCallsService.updateItem.and.returnValue(of(null));
     component.form.patchValue({
       id:1,
@@ -111,7 +137,7 @@ describe('ModalComponent', () => {
 
     })
     component.submitForm()
-    expect(component.btnActionSubmit).toEqual('Atualizar');
+    expect(component.msgAlert).toEqual(true)
   });
 
    it('should submitForm is called New_call', () => {

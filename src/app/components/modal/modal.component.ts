@@ -45,8 +45,8 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   createForm(): void {
     this.form = this.formBuilder.group({
-      title: [null, [Validators.required]],
-      description: [null, [Validators.required]],
+      title: [null, [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
+      description: [null, [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
       status: [null, [Validators.required]],
       id:[null],
       date: [this.mainService.formatDate(new Date())]
@@ -128,4 +128,9 @@ export class ModalComponent implements OnInit, OnDestroy {
   classIcon(): string {
     return this.label == LabelNameModel.NEW_CALL ? 'bi bi-plus-lg' : 'bi bi-pencil';
   }
+
+
+validForm(control:string): string{
+  return this.form.get(control)?.valid ? 'is-valid' : 'is-invalid'
+}
 }

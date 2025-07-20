@@ -12,19 +12,25 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="form" class="was-validated" (ngSubmit)="submitForm()">
+        <form [formGroup]="form"  (ngSubmit)="submitForm()">
           <div class="mb-3">
-            <label for="title" class="form-label">Titulo: *</label>
-            <input type="text" class="form-control "  id="title" formControlName="title" required>
+            <label for="title" class="form-label" >Titulo: *</label>
+            <input type="text" class="form-control {{validForm('title')}}"  id="title" formControlName="title" required>
+              <div id="title" class="invalid-feedback" *ngIf="form.get('title')?.hasError('pattern')" >
+                Apenas letras
+              </div>
           </div>
           <div class="mb-3">
             <label for="descriptions" class="form-label">Descrição: *</label>
-            <input type="text" class="form-control" id="descriptions" formControlName="description" required>
+            <input type="text" class="form-control {{validForm('description')}}" id="descriptions" formControlName="description" required>
+            <div id="title" class="invalid-feedback" *ngIf="form.get('description')?.hasError('pattern')" >
+                Apenas letras e números
+            </div>
           </div>
           <div class="mb-3">
             <label for="status" class="form-label">Status: *</label>
-            <select class="form-select" aria-label="Default select example" formControlName="status" id="status" required>
-              <option selected value="Aberto">Aberto</option>
+            <select class="form-select {{validForm('status')}}" aria-label="seleção de status" formControlName="status" id="status" required>
+              <option value="Aberto">Aberto</option>
               <option value="Progresso">Progresso</option>
               <option value="Fechado">Fechado</option>
             </select>
