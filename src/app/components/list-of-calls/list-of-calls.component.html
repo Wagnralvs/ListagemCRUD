@@ -106,7 +106,7 @@
     </section>
   </ng-container>
 
-    <div *ngIf="items.length === 0 && !loadingFilter && !loading" class="loading d-flex justify-content-center align-items-center vh-60 " >
+    <div *ngIf="items.length === 0 && !loadingFilter && !loading" class=" d-flex justify-content-center align-items-center vh-60 " >
       <div class="d-flex flex-column align-items-center  bg-white bg-white border rounded-4 shadow p-5">
         <p><i class="bi bi-mailbox-flag"></i></p>
         <p>Nenhum chamado encontrado.</p>
@@ -115,7 +115,7 @@
       </div>
   </div>
 
-  <div class="loading d-flex align-items-center justify-content-center" *ngIf="loading || loadingFilter">
+  <div class="loading d-flex align-items-center justify-content-center w-100" *ngIf="loading || loadingFilter">
     <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
