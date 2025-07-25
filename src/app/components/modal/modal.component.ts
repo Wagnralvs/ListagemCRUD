@@ -45,8 +45,8 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   createForm(): void {
     this.form = this.formBuilder.group({
-      title: [null, [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
-      description: [null, [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
+      title: [null, [Validators.required, Validators.pattern('^[A-Za-zÀ-ÿ\\s]+$')]],
+      description: [null, [Validators.required, Validators.pattern('^[A-Za-zÀ-ÿ-0-9\\s]+$')]],
       status: [null, [Validators.required]],
       id:[null],
       date: [this.mainService.formatDate(new Date())]

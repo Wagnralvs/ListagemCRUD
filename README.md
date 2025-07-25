@@ -26,6 +26,12 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-## Running api db.json 
+## Running api db.json local 
 To simulate data from the API execute
+RequestCallService alterar a 
+const apiurl = http://localhost:3000
 Run `json-server`
+
+## Api Vercel mock web
+RequestCallService alterar a 
+const apiurl =  https://api-db-listagem.vercel.app/
