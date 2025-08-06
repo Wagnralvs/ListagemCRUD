@@ -1,0 +1,146 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "cartões",
+      "description": "criações de cartões pf ",
+      "status": "Aberto",
+      "data": "15/07/2025"
+    },
+    {
+      "id": 2,
+      "title": "segundo item atualizado final",
+      "description": "Descrição do segundo item up",
+      "status": "Progresso",
+      "data": "15/07/2025"
+    },
+    {
+      "id": 3,
+      "title": "terceiro item up",
+      "description": "descrição do terceiro item",
+      "status": "Progresso",
+      "data": "15/07/2025"
+    },
+    {
+      "id": 4,
+      "title": "quarto item",
+      "description": "descrição do quarto item",
+      "status": "Fechado",
+      "data": "15/07/2025"
+    },
+    {
+      "id": 5,
+      "title": "quinto item",
+      "description": "descrição do quinto item",
+      "status": "Aberto",
+      "data": "15/07/2025"
+    },
+    {
+      "id": 6,
+      "title": "sexto item",
+      "description": "criação de test auto",
+      "status": "Aberto",
+      "data": "16/07/2025"
+    },
+    {
+      "id": 7,
+      "title": "sétimo item",
+      "description": "descrição do sétimo item",
+      "status": "Aberto",
+      "data": "15/07/2025"
+    },
+    {
+      "id": 8,
+      "title": "oitavo item",
+      "description": "descrição do oitavo item",
+      "status": "Fechado",
+      "data": "15/07/2025"
+    },
+    {
+      "id": 9,
+      "title": "nono item",
+      "description": "descrição do nono item",
+      "status": "Aberto",
+      "data": "15/07/20257"
+    },
+    {
+      "id": 10,
+      "title": "décimo item",
+      "description": "descrição do décimo item",
+      "status": "Fechado",
+      "data": "15/07/2025"
+    },
+
+
+    {
+      "id": 11,
+      "title": "conclusão modal ",
+      "description": "modal delete concluído ",
+      "status": "Fechado",
+      "data": "16/07/2025"
+    },
+    {
+      "id": 12,
+      "title": "uppcade test",
+      "description": "tratamento filtre titulo ",
+      "status": "Aberto",
+      "data": "17/07/2025"
+    },
+    {
+      "id": 13,
+      "title": "filtro titulo ",
+      "description": "Conclusão filtro titulo",
+      "status": "Progresso",
+      "data": "17/07/2025"
+    },
+    {
+      "id": 14,
+      "title": "alert msg sucess",
+      "description": "alerta de criação de chamado",
+      "status": "Aberto",
+      "data": "17/07/2025"
+    },
+    {
+      "id": 15,
+      "title": "edição",
+      "description": "test ediçao",
+      "status": "Aberto",
+      "data": "18/07/2025"
+    },
+    {
+      "id": 16,
+      "title": "test unit",
+      "description": "cobertura test unit",
+      "status": "Aberto",
+      "data": "20/07/2025"
+    },
+    {
+      "id": 17,
+      "title": "décimo setimo item",
+      "description": "descrição do décimo  setimo item",
+      "status": "Aberto",
+      "data": "20/07/2025"
+    },
+    {
+      "id": 18,
+      "title": "décimo oitavo item",
+      "description": "descrição do décimo  oitava item",
+      "status": "Aberto",
+      "data": "20/07/2025"
+    },
+    {
+      "id": 19,
+      "title": "décimo nono item",
+      "description": "descrição do décimo nono item",
+      "status": "Aberto",
+      "data": "20/07/2025"
+    },
+    {
+      "id": 20,
+      "title": "simulação",
+      "description": "descrição do vigesimo",
+      "status": "Aberto",
+      "data": "20/07/2025"
+    }
+  ]
+}

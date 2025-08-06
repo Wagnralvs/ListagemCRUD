@@ -1,0 +1,14 @@
+export enum Url {
+  URL_SERVER_JSON = 'http://localhost:3000',
+  URL_WEB_API = 'api'
+}
+
+export enum ModeRequestApi {
+    FILTER_STATUS = 'FILTER_STATUS',
+    FILTER_TITULE = 'FILTER_TITULE',
+    FILTER_DESCRITION = 'FILTER_DESCRITION',
+    FILTER_DATA = 'FILTER_DATA',
+    FILTER_DATA_ADVENCIE = 'FILTER_DATA_ADVENCIE',
+    GET_ALL = 'ALL',
+    GET_LAST_ITEM = 'LAST_ITEM'
+}

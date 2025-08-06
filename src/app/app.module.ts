@@ -7,6 +7,8 @@ import { ListOfCallsComponent } from './components/list-of-calls/list-of-calls.c
 import { ModalComponent } from './components/modal/modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDeleteModalComponent } from './components/confirm-delete-modal/confirm-delete-modal.component';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ApiMockAngularInMemoryWebApiService } from './shared/services/api-mock/api-mock-angular-in-memory-web-api.service';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { ConfirmDeleteModalComponent } from './components/confirm-delete-modal/c
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(ApiMockAngularInMemoryWebApiService),
     ReactiveFormsModule
   ],
   providers: [],

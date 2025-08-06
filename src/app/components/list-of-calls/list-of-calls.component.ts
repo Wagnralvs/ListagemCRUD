@@ -4,6 +4,7 @@ import { catchError, map, Observable, of } from 'rxjs';
 import { FilterActiveModel } from 'src/app/shared/interfaces/filter-active';
 import { LabelNameModel } from 'src/app/shared/interfaces/label-name-model';
 import { Item } from 'src/app/shared/interfaces/list-items';
+import { Url } from 'src/app/shared/interfaces/urls';
 import { MainService } from 'src/app/shared/services/main/main.service';
 import { RequestCallsService } from 'src/app/shared/services/request-call/request-calls.service';
 
@@ -36,10 +37,12 @@ export class ListOfCallsComponent implements OnInit {
   positionTitleInput = 'order-1';
   placeholderTitle = 'Título';
   searchValueAdvanced = '';
+  btnFilterAdvanceJson = false;
 
   constructor(private requestCallsService: RequestCallsService, private mainService: MainService) { }
 
   ngOnInit(): void {
+    this.btnFilterAdvanceJson = this.requestCallsService.apiUrl === Url.URL_SERVER_JSON? true : false;
     this.loadItems();
     this.pagesDinamic = Array.from({ length: this.totalPages }, (_, i) => i + 1);
     this.mainService.openActionModal.subscribe(({ updateLoadingModal, lastAction }) => {
@@ -268,8 +271,7 @@ export class ListOfCallsComponent implements OnInit {
   }
 
   controlPage(data: any): void {
-        const totalItens = Number(data.headers.get('X-Total-Count'));
-        this.totalPages = Math.ceil(totalItens / this.limitPage);
+        this.totalPages = Number(data.headers.get('X-Total-Pages'));
         this.pagesDinamic = Array.from({ length: this.totalPages }, (_, i) => i + 1);
         this.loading = false;
         this.loadingFilter = false;
